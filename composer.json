@@ -1,0 +1,14 @@
+{
+    "name": "leontimes/payment",
+    "description": "payments:alipay",
+    "authors": [
+        {
+            "name": "Leon Chan",
+            "email": "leontimes@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+             "Illuminate/support":"4.1.*",
+        }
+}
