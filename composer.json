@@ -8,7 +8,5 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-             "Illuminate/support":"4.1.*",
-        }
+    "require": {}
 }
