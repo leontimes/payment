@@ -1,4 +1,4 @@
-<?php namespace Leontimes\Payments\Adapters;
+<?php namespace Leontimes\Payment\Adapters;
 
 use Config;
 use Illuminate\Support\Facades\Log as Log;
@@ -6,7 +6,7 @@ use Leontimes\Signs\RSA;
 
 /**
  * Class Alipay
- * @package App\Payments\Adapters
+ * @package App\payment\Adapters
  */
 class Alipay extends AdapterAbstract
 {
@@ -19,11 +19,11 @@ class Alipay extends AdapterAbstract
      */
     public function __construct($config = array())
     {
-        $this->_config['request_id'] = Config::get('payments::alipay.request_id', date('Ymdhis'));
-        $this->_config['cacert'] = Config::get('payments::alipay.cacert', '');
-        $this->_config['partner'] = Config::get('payments::alipay.partner', '');
-        $this->_config['private_key_path'] = Config::get('payments::alipay.private_key_path', '');
-        $this->_config['public_key_path'] = Config::get('payments::alipay.public_key_path', '');
+        $this->_config['request_id'] = Config::get('payment::alipay.request_id', date('Ymdhis'));
+        $this->_config['cacert'] = Config::get('payment::alipay.cacert', '');
+        $this->_config['partner'] = Config::get('payment::alipay.partner', '');
+        $this->_config['private_key_path'] = Config::get('payment::alipay.private_key_path', '');
+        $this->_config['public_key_path'] = Config::get('payment::alipay.public_key_path', '');
 
         if (!empty($config)) $this->setConfig($config);
 
@@ -31,22 +31,22 @@ class Alipay extends AdapterAbstract
 //        elseif ($this->_config['type'] == 2) $this->_config['service'] = 'create_direct_pay_by_user';
 //        else $this->_config['service'] = 'create_partner_trade_by_buyer';
 
-        $this->_config['seller_email'] = Config::get('payments::alipay.account', '');
-        $this->_config['sign_type'] = strtoupper(Config::get('payments::alipay.sign_type', 'MD5'));
-        $this->_config['format'] = strtolower(Config::get('payments::alipay.format', 'xml'));
-        $this->_config['version'] = Config::get('payments::alipay.version', '2.0');
-        $this->_config['notify_url'] = Config::get('payments::alipay.notify_url', '');
-        $this->_config['callback_url'] = Config::get('payments::alipay.callback_url', '');
-        $this->_config['merchant_url'] = Config::get('payments::alipay.merchant_url', '');
-        $this->_config['gateway'] = Config::get('payments::alipay.gateway', '');
-        $this->_config['key'] = Config::get('payments::alipay.key', '');
+        $this->_config['seller_email'] = Config::get('payment::alipay.account', '');
+        $this->_config['sign_type'] = strtoupper(Config::get('payment::alipay.sign_type', 'MD5'));
+        $this->_config['format'] = strtolower(Config::get('payment::alipay.format', 'xml'));
+        $this->_config['version'] = Config::get('payment::alipay.version', '2.0');
+        $this->_config['notify_url'] = Config::get('payment::alipay.notify_url', '');
+        $this->_config['callback_url'] = Config::get('payment::alipay.callback_url', '');
+        $this->_config['merchant_url'] = Config::get('payment::alipay.merchant_url', '');
+        $this->_config['gateway'] = Config::get('payment::alipay.gateway', '');
+        $this->_config['key'] = Config::get('payment::alipay.key', '');
 
         $this->_config['charset'] = strtolower(Config::get('app.encoding', 'UTF-8'));
         $this->_config['url'] = $this->_config['gateway'] . '?_input_charset=' . $this->_config['charset'];
         $this->_config['method'] = 'GET';
         $this->_config['https_verify_url'] = 'https://mapi.alipay.com/gateway.do?service=notify_verify&';
         $this->_config['http_verify_url'] = 'http://notify.alipay.com/trade/notify_query.do?';
-        $this->_config['transport'] = Config::get('payments::alipay.transport', 'http');
+        $this->_config['transport'] = Config::get('payment::alipay.transport', 'http');
 
     }
 
@@ -63,7 +63,7 @@ class Alipay extends AdapterAbstract
         $passParameters = array(
             '_input_charset' => $this->_config['charset'],//编码
             'partner' => $this->_config['partner'],//订单编号
-            'service' => \Config::get('payments::alipay.service_create', ''),
+            'service' => \Config::get('payment::alipay.service_create', ''),
             'sec_id' => $this->_config['sign_type'],//
             'format' => $this->_config['format'],//
             'req_id' => $this->_config['request_id'],//
@@ -80,13 +80,16 @@ class Alipay extends AdapterAbstract
     protected function _getExecuteParameters($token)
     {
         $params = array(
-            "service" => \Config::get('payments::alipay.service_execute', ''),
+           "service" => \Config::get('payment::alipay.service_execute', ''),
             "partner" => $this->_config['partner'],
+        	"seller_email" => \Config::get('payment::alipay.account', ''),
             "sec_id" => $this->_config['sign_type'],
-            "format" => $this->_config['format'],
             "v" => $this->_config['version'],
-            "req_id" => $this->_config['request_id'],
+            "payment_type" => $this->_config['payment_type'],
             "_input_charset" => $this->_config['charset'],
+        	'out_trade_no' => $this->_orderId,
+        	'subject' => $this->_product['name'],
+        	'total_fee' => $this->_product['price'],
             'req_data' => ''
         );
         switch ($this->_config['format'] ) {

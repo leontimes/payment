@@ -1,5 +1,5 @@
 <?php namespace Leontimes\Payment;
-use Illuminate\Support\ServiceProvider;
+//use Illuminate\Support\ServiceProvider;
 
 class PaymentServiceProvider extends ServiceProvider
 {

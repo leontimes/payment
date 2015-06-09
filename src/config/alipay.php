@@ -83,7 +83,7 @@ return array (
     | 根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
     |
     */
-    'transport' => 'http',//商户账号
+    'transport' => 'http',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array (
     | 邮箱
     |
     */
-    'account' => '', //商户密钥
+    'account' => '', //EMAIL
 
     /*
     |--------------------------------------------------------------------------
@@ -103,7 +103,7 @@ return array (
     | 以2088开头的16位纯数字
     |
     */
-    'partner' => '', //支付返回地址
+    'partner' => '', //PID
 
     /*
     |--------------------------------------------------------------------------
@@ -114,9 +114,9 @@ return array (
     | 如果签名方式设置为“MD5”时，请设置该参数
     |
     */
-    'key' => '', //支付返回地址
+    'key' => '', //KEY
 
-    'service_create' => 'alipay.wap.trade.create.direct',
-    'service_execute' => 'alipay.wap.auth.authAndExecute',
-    'gateway' => 'http://wappaygw.alipay.com/service/rest.htm',
+    'service_create' => 'create_direct_pay_by_user',
+    'service_execute' => 'create_direct_pay_by_user',
+    'gateway' => 'https://mapi.alipay.com/gateway.do?',
 );

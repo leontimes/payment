@@ -1,4 +1,4 @@
-<?php namespace Leontimes\Payments;
+<?php namespace Leontimes\Payment\Adapters;
 abstract class AdapterAbstract
 {
     /**
