@@ -90,6 +90,8 @@ class Alipay extends AdapterAbstract
         	'out_trade_no' => $this->_orderId,
         	'subject' => $this->_product['name'],
         	'total_fee' => $this->_product['price'],
+        	'notify_url' => \Config::get('payment::alipay.notify_url', ''),
+        	'return_url' => \Config::get('payment::alipay.return_url', ''),
             'req_data' => ''
         );
         switch ($this->_config['format'] ) {

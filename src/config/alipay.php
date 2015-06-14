@@ -10,7 +10,7 @@ return array (
     |
     */
     'notify_url' => route('pay.alipay.notify'),
-
+	'return_url' => route('pay.alipay.return'),
     /*
     |--------------------------------------------------------------------------
     | 页面跳转同步通知页面路径
