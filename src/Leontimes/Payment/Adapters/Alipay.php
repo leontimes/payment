@@ -85,7 +85,7 @@ class Alipay extends AdapterAbstract
         	"seller_email" => \Config::get('payment::alipay.account', ''),
             "sec_id" => $this->_config['sign_type'],
             "v" => $this->_config['version'],
-            "payment_type" => $this->_config['payment_type'],
+            "payment_type" => Config::get('payment::alipay.payment_type', 1),
             "_input_charset" => $this->_config['charset'],
         	'out_trade_no' => $this->_orderId,
         	'subject' => $this->_product['name'],
