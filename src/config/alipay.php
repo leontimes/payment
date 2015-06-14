@@ -9,8 +9,8 @@ return array (
     | 需http://格式的完整路径，不允许加?id=123这类自定义参数
     |
     */
-    'notify_url' => route('pay.alipay.notify'),
-	'return_url' => route('pay.alipay.return'),
+    'notify_url' => '',
+	'return_url' => '',
     /*
     |--------------------------------------------------------------------------
     | 页面跳转同步通知页面路径
@@ -19,7 +19,7 @@ return array (
     | 需http://格式的完整路径，不允许加?id=123这类自定义参数
     |
     */
-    'callback_url' => route('pay.alipay.callback'),
+    'callback_url' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ return array (
     | 需http://格式的完整路径，不允许加?id=123这类自定义参数
     |
     */
-    'merchant_url' => route('pay.alipay.fail'),
+    'merchant_url' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -104,7 +104,7 @@ return array (
     |
     */
     'partner' => '', //PID
-
+    'payment_type' => 1,
     /*
     |--------------------------------------------------------------------------
     | 安全检验码
@@ -116,7 +116,7 @@ return array (
     */
     'key' => '', //KEY
 
-    'service_create' => 'create_direct_pay_by_user',
+    'service_create' => 'create_direct_pay_by_user', //即时支付接口
     'service_execute' => 'create_direct_pay_by_user',
     'gateway' => 'https://mapi.alipay.com/gateway.do?',
 );
